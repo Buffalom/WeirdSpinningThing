@@ -1,4 +1,5 @@
 let things = [];
+let newThing;
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
@@ -12,8 +13,22 @@ function draw() {
         things[x].show();
         things[x].move();
     }
+
+    if (newThing != null) {
+        newThing.show();
+    }
 }
 
 function mousePressed() {
-    things.push(new Thing(mouseX, mouseY, random(10, 200)));
+    newThing = new Thing(mouseX, mouseY, 0);
+}
+
+function mouseDragged() {
+    newThing.w = mouseX - newThing.pos.x;
+    newThing.h = mouseY - newThing.pos.y;
+}
+
+function mouseReleased() {
+    things.push(newThing);
+    newThing = null;
 }
